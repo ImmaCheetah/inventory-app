@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Routers
 const indexRouter = require('./routes/indexRouter')
 const categoryRouter = require('./routes/categoryRouter')
+const carRouter = require('./routes/carRouter')
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.set("view engine", "ejs");
 // Routes
 app.use('/', indexRouter)
 app.use('/category', categoryRouter)
+app.use('/car', carRouter)
 
 
 app.listen(process.env.PORT, () => console.log('App running on port', PORT))
