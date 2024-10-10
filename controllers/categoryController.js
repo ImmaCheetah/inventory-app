@@ -12,13 +12,24 @@ function createCategoryGet(req, res) {
     console.log(req.params)
 }
 
+function updateCategoryGet(req, res) {
+    res.render('updateCategory', {param: req.params})
+    console.log('update category page',req.params)
+}
+
 function createCategoryPost(req, res) {
     console.log('category posted')
+}
+
+function updateCategoryPost(req, res) {
+    console.log('category updated')
 }
 
 module.exports = {
     getStartCategory, 
     getCategory, 
     createCategoryGet, 
-    createCategoryPost
+    createCategoryPost,
+    updateCategoryGet,
+    updateCategoryPost
 };
