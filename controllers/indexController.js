@@ -1,5 +1,8 @@
+const db = require("../db/queries");
 
-function getIndex(req, res) {
+async function getIndex(req, res) {
+    const cars = await db.getAllCarModels()
+    console.log(cars);
     res.render('index')
 }
 

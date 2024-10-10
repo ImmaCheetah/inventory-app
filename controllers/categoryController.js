@@ -7,4 +7,18 @@ function getCategory(req, res) {
     console.log(req.params)
 }
 
-module.exports = {getStartCategory, getCategory};
+function createCategoryGet(req, res) {
+    res.render('createCategory', {param: req.params})
+    console.log(req.params)
+}
+
+function createCategoryPost(req, res) {
+    console.log('category posted')
+}
+
+module.exports = {
+    getStartCategory, 
+    getCategory, 
+    createCategoryGet, 
+    createCategoryPost
+};

@@ -7,9 +7,14 @@ function getCar(req, res) {
     console.log(req.params)
 }
 
-function createCar(req, res) {
+function createCarGet(req, res) {
     res.render('createCar', {param: req.params})
     console.log(req.params)
 }
 
-module.exports = {getStartCar, getCar, createCar};
+function createCarPost(req, res) {
+
+    console.log('car posted')
+}
+
+module.exports = {getStartCar, getCar, createCarGet, createCarPost};

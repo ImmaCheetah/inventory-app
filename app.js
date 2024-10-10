@@ -3,6 +3,9 @@ require("dotenv").config();
 const express = require('express');
 const path = require("node:path");
 
+// Path to css file
+const assetsPath = path.join(__dirname, "/public");
+
 // Port
 const PORT = process.env.PORT || 3000;
 
@@ -14,6 +17,7 @@ const carRouter = require('./routes/carRouter')
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(assetsPath));
 app.set("views", path.join(__dirname, "views/pages"));
 app.set("view engine", "ejs");
 
