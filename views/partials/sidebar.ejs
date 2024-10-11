@@ -6,13 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Categories</h1>
-    <p>category 1</p>
-    <p>category 2</p>
-    <p>category 3</p>
-    <div>
-        <a href="/car/new">Add Car</a>
-        <a href="/category/new">Add Category</a>
-    </div>
+    <aside>
+        <h1>Categories</h1>
+        <% categories.forEach(category => { %>
+            <li>
+                <a href=""><%= category.category %></a>
+            </li>
+        <% }) %>
+        <div>
+            <a href="/car/new">Add Car</a>
+            <a href="/category/new">Add Category</a>
+        </div>
+    </aside>
 </body>
 </html>

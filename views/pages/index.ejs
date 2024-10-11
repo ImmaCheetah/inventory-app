@@ -1,7 +1,14 @@
 <html>
-
+  <%- include('../partials/head') %>
   <body>
     <%- include('../partials/sidebar') %>
-    <h1>hello</h1>
+    <div>
+      <h1>hello</h1>
+      <% cars.forEach(car => { %>
+        <div>
+          <h1><%= car.brand %> <%= car.model %></h1>
+        </div>
+      <% }) %>
+    </div>
   </body>
 </html>
