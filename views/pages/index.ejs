@@ -5,9 +5,9 @@
     <div>
       <h1>hello</h1>
       <% cars.forEach(car => { %>
-        <div>
+        <a href="/car/<%= car.car_id %>">
           <h1><%= car.brand %> <%= car.model %></h1>
-        </div>
+        </a>
       <% }) %>
     </div>
   </body>

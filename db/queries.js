@@ -10,7 +10,13 @@ async function getAllCategories() {
     return rows;
 }
 
+async function getCar(id) {
+    const {rows} = await pool.query("SELECT * FROM cars WHERE cars.car_id = ($1)", [id]);
+    return rows;
+}
+
 module.exports = {
     getAllCars,
-    getAllCategories
+    getAllCategories,
+    getCar
 }

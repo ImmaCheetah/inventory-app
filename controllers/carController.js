@@ -1,10 +1,14 @@
+const db = require("../db/queries");
+
 function getStartCar(req, res) {
     res.render('car')
 }
 
-function getCar(req, res) {
-    res.render('car', {param: req.params})
-    console.log('get car', req.params)
+async function getCar(req, res) {
+    const id = req.params.carId
+    const car = await db.getCar(id)
+    res.render('car', {car: car, param: req.params})
+    console.log('get car', car)
 }
 
 function createCarGet(req, res) {
