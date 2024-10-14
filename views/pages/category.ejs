@@ -6,5 +6,8 @@
     <h2>
         <%= param.categoryName  %>
     </h2>
+    <% carsInCategory.forEach(car => { %>
+     <h3><%= car.brand %> <%= car.model %></h3>
+    <% }) %>
   </body>
 </html>

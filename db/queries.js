@@ -5,6 +5,17 @@ async function getAllCars() {
     return rows;
 }
 
+async function getAllCarsInCategory(category) {
+    const {rows} = await pool.query(
+        `SELECT brand, model, category FROM cars
+        JOIN car_categories
+        ON cars.car_id = car_categories.car_id
+        JOIN categories
+        ON car_categories.category_id = categories.category_id
+        WHERE category = ($1)`, [category]);
+    return rows;
+}
+
 async function getAllCategories() {
     const {rows} = await pool.query("SELECT category FROM categories");
     return rows;
@@ -36,6 +47,7 @@ async function insertCategory(category) {
 
 module.exports = {
     getAllCars,
+    getAllCarsInCategory,
     getAllCategories,
     getCar,
     insertCar,

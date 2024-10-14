@@ -4,9 +4,13 @@ function getStartCategory(req, res) {
     res.render('category')
 }
 
-function getCategory(req, res) {
-    res.render('category', {param: req.params})
+async function getCategory(req, res) {
+    const category = req.params.categoryName;
+    const carsInCategory = await db.getAllCarsInCategory(category)
+    res.render('category', {param: req.params, carsInCategory: carsInCategory})
     console.log(req.params)
+    console.log(category)
+    console.log(carsInCategory)
 }
 
 function createCategoryGet(req, res) {
