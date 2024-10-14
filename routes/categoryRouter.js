@@ -4,10 +4,10 @@ const categoryRouter = Router();
 
 categoryRouter.get('/', categoryController.getStartCategory)
 categoryRouter.get('/new', categoryController.createCategoryGet)
-categoryRouter.get('/:categoryName', categoryController.getCategory)
-categoryRouter.get('/:categoryName/update', categoryController.updateCategoryGet)
+categoryRouter.get('/:categoryId', categoryController.getCategory)
+categoryRouter.get('/:categoryId/update', categoryController.updateCategoryGet)
 
 categoryRouter.post('/new', categoryController.createCategoryPost)
-categoryRouter.post('/:categoryName/update', categoryController.updateCategoryPost)
+categoryRouter.post('/:categoryId/update', categoryController.updateCategoryPost)
 
 module.exports = categoryRouter;

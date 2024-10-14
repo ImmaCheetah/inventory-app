@@ -5,11 +5,11 @@ function getStartCategory(req, res) {
 }
 
 async function getCategory(req, res) {
-    const category = req.params.categoryName;
-    const carsInCategory = await db.getAllCarsInCategory(category)
+    console.log('PARAMS', req.params)
+    const categoryId = req.params.categoryId;
+    const carsInCategory = await db.getAllCarsInCategory(categoryId)
     res.render('category', {param: req.params, carsInCategory: carsInCategory})
-    console.log(req.params)
-    console.log(category)
+    console.log(categoryId)
     console.log(carsInCategory)
 }
 

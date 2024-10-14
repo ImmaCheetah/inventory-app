@@ -2,9 +2,9 @@
   <%- include('../partials/head') %>
   <body>
     <h1>category page</h1>
-    <a href="/category/<%= param.categoryName %>/update">Update</a>
+    <a href="/category/<%= param.categoryId %>/update">Update</a>
     <h2>
-        <%= param.categoryName  %>
+        
     </h2>
     <% carsInCategory.forEach(car => { %>
      <h3><%= car.brand %> <%= car.model %></h3>

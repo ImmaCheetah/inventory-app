@@ -1,23 +1,23 @@
 const pool = require("./pool");
 
 async function getAllCars() {
-    const {rows} = await pool.query("SELECT * FROM cars");
+    const {rows} = await pool.query("SELECT * FROM cars ORDER BY brand ASC");
     return rows;
 }
 
-async function getAllCarsInCategory(category) {
+async function getAllCarsInCategory(categoryId) {
     const {rows} = await pool.query(
         `SELECT brand, model, category FROM cars
         JOIN car_categories
         ON cars.car_id = car_categories.car_id
         JOIN categories
         ON car_categories.category_id = categories.category_id
-        WHERE category = ($1)`, [category]);
+        WHERE categories.category_id = ($1)`, [categoryId]);
     return rows;
 }
 
 async function getAllCategories() {
-    const {rows} = await pool.query("SELECT category FROM categories");
+    const {rows} = await pool.query("SELECT * FROM categories");
     return rows;
 }
 
