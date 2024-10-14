@@ -45,8 +45,17 @@ async function findCategory(categoryId) {
     return rows;
 }
 
+async function findCar(carId) {
+    const {rows} = await pool.query("SELECT * FROM cars WHERE car_id = ($1)", [carId]);
+    return rows;
+}
+
 async function updateCategory(category, categoryId) {
     await pool.query(`UPDATE categories SET category = ($1) WHERE category_id = ($2)`, [category, categoryId])
+}
+
+async function updateCar(brand, model, description, carId) {
+    await pool.query(`UPDATE cars SET brand = ($1), model = ($2), description = ($3) WHERE car_id = ($4)`, [brand, model, description, carId])
 }
 
 module.exports = {
@@ -57,5 +66,7 @@ module.exports = {
     insertCar,
     insertCategory,
     findCategory,
+    findCar,
     updateCategory,
+    updateCar
 }

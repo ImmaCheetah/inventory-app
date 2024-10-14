@@ -17,9 +17,11 @@ async function createCarGet(req, res) {
     console.log('create form get', req.params)
 }
 
-function updateCarGet(req, res) {
-    res.render('updateCar', {param: req.params})
-    console.log('update page', req.params)
+async function updateCarGet(req, res) {
+    const carId = req.params.carId;
+    const car = await db.findCar(carId)
+    res.render('updateCar', {param: req.params, car: car})
+    console.log('update page', car)
 }
 
 async function createCarPost(req, res) {
@@ -30,8 +32,13 @@ async function createCarPost(req, res) {
     res.redirect('/');
 }
 
-function updateCarPost(req, res) {
+async function updateCarPost(req, res) {
+    const {brand, model, description} = req.body;
+    const carId = req.params.carId;
+    await db.updateCar(brand, model, description, carId)
     console.log('car updated')
+
+    res.redirect('/')
 }
 
 module.exports = {

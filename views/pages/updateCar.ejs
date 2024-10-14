@@ -4,11 +4,11 @@
     <form method="POST" action="/car/<%= param.carId %>/update">
         <h1>Update Car</h1>
         <label for="brand">Brand:</label>
-        <input type="text" name="brand" required>
+        <input type="text" name="brand" value="<%= car[0].brand %>" required>
         <label for="model">Model:</label>
-        <input type="text" name="model" required>
-        <label for="image">Upload Image</label>
-        <input type="file" name="image">
+        <input type="text" name="model" value="<%= car[0].model %>" required>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"><%= car[0].description %></textarea>
         <button type="submit">Update</button>
     </form>
 </body>
