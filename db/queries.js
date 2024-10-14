@@ -26,15 +26,18 @@ async function insertCar(brand, model, description, category) {
 
     const categoryId = await pool.query(`SELECT category_id FROM categories WHERE category = ($1)`, [category])
     console.log(categoryId)
-    
+
     await pool.query(`INSERT INTO car_categories (car_id, category_id) VALUES ($1, $2)`, [carId.rows[0].car_id, categoryId.rows[0].category_id]);
+}
 
-
+async function insertCategory(category) {
+    await pool.query(`INSERT INTO categories (category) VALUES ($1)`, [category])
 }
 
 module.exports = {
     getAllCars,
     getAllCategories,
     getCar,
-    insertCar
+    insertCar,
+    insertCategory
 }

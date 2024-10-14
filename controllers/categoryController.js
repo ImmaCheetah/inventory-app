@@ -1,3 +1,5 @@
+const db = require("../db/queries");
+
 function getStartCategory(req, res) {
     res.render('category')
 }
@@ -17,8 +19,11 @@ function updateCategoryGet(req, res) {
     console.log('update category page',req.params)
 }
 
-function createCategoryPost(req, res) {
+async function createCategoryPost(req, res) {
+    const {category} = req.body;
+    await db.insertCategory(category);
     console.log('category posted')
+    res.redirect('/')
 }
 
 function updateCategoryPost(req, res) {
