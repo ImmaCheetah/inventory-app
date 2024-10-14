@@ -15,8 +15,8 @@ category VARCHAR(20) NOT NULL UNIQUE
 );
 
 CREATE TABLE car_categories (                                        
-id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
-car_id INT NOT NULL,
+id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
+car_id INTEGER NOT NULL,
 category_id INT NOT NULL,
 CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES cars(car_id),
 CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id)

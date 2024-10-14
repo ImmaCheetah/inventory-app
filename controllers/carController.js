@@ -11,8 +11,9 @@ async function getCar(req, res) {
     console.log('get car', car)
 }
 
-function createCarGet(req, res) {
-    res.render('createCar', {param: req.params})
+async function createCarGet(req, res) {
+    const categories = await db.getAllCategories()
+    res.render('createCar', {param: req.params, categories: categories})
     console.log('create form get', req.params)
 }
 
@@ -21,8 +22,12 @@ function updateCarGet(req, res) {
     console.log('update page', req.params)
 }
 
-function createCarPost(req, res) {
-    console.log('car posted')
+async function createCarPost(req, res) {
+    const {brand, model, category, description} = req.body;
+    await db.insertCar(brand, model, description, category);
+
+    console.log('car posted', brand, model, category, description);
+    res.redirect('/');
 }
 
 function updateCarPost(req, res) {

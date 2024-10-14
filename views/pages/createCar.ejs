@@ -7,8 +7,14 @@
         <input type="text" name="brand" required>
         <label for="model">Model:</label>
         <input type="text" name="model" required>
-        <label for="image">Upload Image</label>
-        <input type="file" name="image">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <% categories.forEach(category => { %>
+             <option value="<%= category.category %>"><%= category.category %></option>
+            <% }) %>
+        </select>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
         <button type="submit">Add</button>
     </form>
 </body>
