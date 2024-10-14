@@ -27,11 +27,6 @@ async function getCar(id) {
 }
 
 async function insertCar(brand, model, description, category) {
-    /*
-    - insert a car into cars table
-    - search for selected category id
-    - insert into junction using returning id from cars table and category id
-    */
     const carId = await pool.query(`INSERT INTO cars (brand, model, description) VALUES ($1, $2, $3) RETURNING car_id`, [brand, model, description])
     console.log(carId.rows[0].car_id)
 
@@ -45,11 +40,22 @@ async function insertCategory(category) {
     await pool.query(`INSERT INTO categories (category) VALUES ($1)`, [category])
 }
 
+async function findCategory(categoryId) {
+    const {rows} = await pool.query("SELECT * FROM categories WHERE category_id = ($1)", [categoryId]);
+    return rows;
+}
+
+async function updateCategory(category, categoryId) {
+    await pool.query(`UPDATE categories SET category = ($1) WHERE category_id = ($2)`, [category, categoryId])
+}
+
 module.exports = {
     getAllCars,
     getAllCarsInCategory,
     getAllCategories,
     getCar,
     insertCar,
-    insertCategory
+    insertCategory,
+    findCategory,
+    updateCategory,
 }

@@ -5,7 +5,6 @@ function getStartCategory(req, res) {
 }
 
 async function getCategory(req, res) {
-    console.log('PARAMS', req.params)
     const categoryId = req.params.categoryId;
     const carsInCategory = await db.getAllCarsInCategory(categoryId)
     res.render('category', {param: req.params, carsInCategory: carsInCategory})
@@ -18,9 +17,12 @@ function createCategoryGet(req, res) {
     console.log(req.params)
 }
 
-function updateCategoryGet(req, res) {
-    res.render('updateCategory', {param: req.params})
-    console.log('update category page',req.params)
+async function updateCategoryGet(req, res) {
+    const categoryId = parseInt(req.params.categoryId)
+    const category = await db.findCategory(categoryId)
+    res.render('updateCategory', {param: req.params, category: category})
+    console.log('update category page', categoryId)
+    console.log(category)
 }
 
 async function createCategoryPost(req, res) {
@@ -30,8 +32,12 @@ async function createCategoryPost(req, res) {
     res.redirect('/')
 }
 
-function updateCategoryPost(req, res) {
+async function updateCategoryPost(req, res) {
+    const {category} = req.body;
+    const categoryId = parseInt(req.params.categoryId)
+    await db.updateCategory(category, categoryId)
     console.log('category updated')
+    res.redirect('/')
 }
 
 module.exports = {

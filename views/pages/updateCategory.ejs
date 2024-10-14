@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <%- include('../partials/head') %>
 <body>
-    <form method="POST" action="/category/<%= param.categoryName %>/update">
+    <form method="POST" action="/category/<%= param.categoryId %>/update">
         <h1>Update Category</h1>
         <label for="category">Category Name:</label>
-        <input type="text" name="category" required>
+        <input type="text" name="category" value="<%= category[0].category %>">
         <button type="submit">Update</button>
     </form>
 </body>
