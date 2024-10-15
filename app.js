@@ -27,4 +27,9 @@ app.use('/category', categoryRouter)
 app.use('/car', carRouter)
 
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send(err);
+  });
+
 app.listen(process.env.PORT, () => console.log('App running on port', PORT))

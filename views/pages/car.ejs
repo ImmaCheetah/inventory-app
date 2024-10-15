@@ -1,9 +1,15 @@
 <html>
   <%- include('../partials/head') %>
   <body>
-    <h1><%= car[0].brand %> <%= car[0].model %></h1>
-    <p><%= car[0].description %></p>
-    <a href="/car/<%= car[0].car_id %>/update">Update</a>
-    <a href="/car/<%= car[0].car_id %>/delete">Delete</a>
+    <article>
+      <h1><%= car[0].brand %> <%= car[0].model %></h1>
+      <p><%= car[0].description %></p>
+      <a href="/car/<%= car[0].car_id %>/update">Update</a>
+      <form method="POST" action="/car/<%= param.carId %>">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Delete</button>
+      </form>
+    </article>
   </body>
 </html>

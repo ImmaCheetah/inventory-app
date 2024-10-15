@@ -7,9 +7,17 @@ function getStartCar(req, res) {
 
 async function getCar(req, res) {
     const id = req.params.carId
-    const car = await db.getCar(id)
-    res.render('car', {car: car, param: req.params})
-    console.log('get car', car)
+    try {
+        const car = await db.getCar(id)
+        if (car.length === 0) {
+            res.status(404).send("Car not found");
+            return;
+        }
+        res.render('car', {car: car, param: req.params})
+    } catch (error) {
+        console.log('BAAAAM',error)
+    }
+    // console.log('get car', car)
 }
 
 async function createCarGet(req, res) {
@@ -42,13 +50,6 @@ async function updateCarPost(req, res) {
     res.redirect('/')
 }
 
-async function deleteCarGet(req, res) {
-    // const carId = req.params.carId;
-    // const car = await db.findCar(carId)
-    res.render('deleteCar', {param: req.params})
-    console.log('delete page')
-}
-
 async function deleteCarPost(req, res) {
     const carId = req.params.carId;
     if (req.body.password === process.env.DELETE_PASSWORD) {
@@ -68,6 +69,5 @@ module.exports = {
     updateCarGet, 
     createCarPost,
     updateCarPost,
-    deleteCarGet,
     deleteCarPost
 };

@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<%- include('../partials/head') %>
 <body>
-    <aside>
+    <aside class="sidebar">
         <h1>Categories</h1>
         <% categories.forEach(category => { %>
-            <li>
-                <a href="/category/<%= category.category_id %>"><%= category.category %></a>
+            <li class="category-item">
+                <a href="/category/<%= category.category_id %>">
+                    <%= category.category %>
+                </a>
             </li>
         <% }) %>
         <div>
-            <a href="/car/new">Add Car</a>
-            <a href="/category/new">Add Category</a>
+            <a href="/car/new" class="add-car-btn">Add Car</a>
+            <a href="/category/new" class="add-category-btn">Add Category</a>
         </div>
     </aside>
 </body>

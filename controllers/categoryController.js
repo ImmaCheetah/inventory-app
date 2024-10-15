@@ -40,11 +40,24 @@ async function updateCategoryPost(req, res) {
     res.redirect('/')
 }
 
+async function deleteCategoryPost(req, res) {
+    const categoryId = req.params.categoryId;
+    if (req.body.password === process.env.DELETE_PASSWORD) {
+        await db.deleteCategory(categoryId);
+        console.log('deleted category')
+        res.redirect('/')
+        return;
+    } else {
+        return;
+    }
+}
+
 module.exports = {
     getStartCategory, 
     getCategory, 
     createCategoryGet, 
     createCategoryPost,
     updateCategoryGet,
-    updateCategoryPost
+    updateCategoryPost,
+    deleteCategoryPost
 };

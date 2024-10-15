@@ -7,7 +7,7 @@ async function getAllCars() {
 
 async function getAllCarsInCategory(categoryId) {
     const {rows} = await pool.query(
-        `SELECT brand, model, category FROM cars
+        `SELECT cars.car_id, brand, model, category FROM cars
         JOIN car_categories
         ON cars.car_id = car_categories.car_id
         JOIN categories
@@ -22,8 +22,13 @@ async function getAllCategories() {
 }
 
 async function getCar(id) {
-    const {rows} = await pool.query("SELECT * FROM cars WHERE cars.car_id = ($1)", [id]);
-    return rows;
+    try {
+        const {rows} = await pool.query("SELECT * FROM cars WHERE cars.car_id = ($1)", [id]);
+        return rows;
+    } catch (error) {
+        console.log('ERRROOOOOOOOOOOOOOOOOOOOOOR')
+        console.log(error)
+    }
 }
 
 async function insertCar(brand, model, description, category) {
@@ -59,8 +64,12 @@ async function updateCar(brand, model, description, carId) {
 }
 
 async function deleteCar(carId) {
-    await pool.query(`DELETE FROM cars WHERE car_id = ($1)`, [carId])
-    
+    await pool.query(`DELETE FROM cars WHERE car_id = ($1)`, [carId]) 
+}
+
+async function deleteCategory(categoryId) {
+    await pool.query(`DELETE FROM categories USING cars
+    WHERE categories.category_id = $1;`, [categoryId]) 
 }
 
 module.exports = {
@@ -74,5 +83,6 @@ module.exports = {
     findCar,
     updateCategory,
     updateCar,
-    deleteCar
+    deleteCar,
+    deleteCategory
 }
