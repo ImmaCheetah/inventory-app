@@ -1,3 +1,4 @@
+require("dotenv").config();
 const db = require("../db/queries");
 
 function getStartCar(req, res) {
@@ -41,11 +42,32 @@ async function updateCarPost(req, res) {
     res.redirect('/')
 }
 
+async function deleteCarGet(req, res) {
+    // const carId = req.params.carId;
+    // const car = await db.findCar(carId)
+    res.render('deleteCar', {param: req.params})
+    console.log('delete page')
+}
+
+async function deleteCarPost(req, res) {
+    const carId = req.params.carId;
+    if (req.body.password === process.env.DELETE_PASSWORD) {
+        await db.deleteCar(carId);
+        console.log('deleted car')
+        res.redirect('/')
+        return;
+    } else {
+        return;
+    }
+}
+
 module.exports = {
     getStartCar, 
     getCar, 
     createCarGet, 
     updateCarGet, 
     createCarPost,
-    updateCarPost
+    updateCarPost,
+    deleteCarGet,
+    deleteCarPost
 };

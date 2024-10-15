@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<%- include('../partials/head') %>
+<body>
+    <form method="POST" action="/car/<%= param.carId %>/delete">
+        <h1>Delete Car</h1>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

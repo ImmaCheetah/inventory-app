@@ -18,8 +18,8 @@ CREATE TABLE car_categories (
 id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY UNIQUE,
 car_id INTEGER NOT NULL,
 category_id INT NOT NULL,
-CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES cars(car_id),
-CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id)
+CONSTRAINT fk_car FOREIGN KEY (car_id) REFERENCES cars(car_id) ON DELETE CASCADE,
+CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
 INSERT INTO cars(brand, model, description) 

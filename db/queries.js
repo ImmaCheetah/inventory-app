@@ -58,6 +58,11 @@ async function updateCar(brand, model, description, carId) {
     await pool.query(`UPDATE cars SET brand = ($1), model = ($2), description = ($3) WHERE car_id = ($4)`, [brand, model, description, carId])
 }
 
+async function deleteCar(carId) {
+    await pool.query(`DELETE FROM cars WHERE car_id = ($1)`, [carId])
+    
+}
+
 module.exports = {
     getAllCars,
     getAllCarsInCategory,
@@ -68,5 +73,6 @@ module.exports = {
     findCategory,
     findCar,
     updateCategory,
-    updateCar
+    updateCar,
+    deleteCar
 }
