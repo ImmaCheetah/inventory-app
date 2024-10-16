@@ -26,7 +26,7 @@ async function getCar(id) {
         const {rows} = await pool.query("SELECT * FROM cars WHERE cars.car_id = ($1)", [id]);
         return rows;
     } catch (error) {
-        console.log('ERRROOOOOOOOOOOOOOOOOOOOOOR from getCar query')
+        console.log('ERROR from getCar query')
         console.log(error)
     }
 }
@@ -78,7 +78,7 @@ async function deleteCategory(categoryId) {
 
         await pool.query(`DELETE FROM categories
         WHERE category_id = $1;`, [categoryId])
-        
+
         await pool.query('COMMIT')
     } catch (error) {
         console.log('error from delete category query', error)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%- include('../partials/head') %>
 <body>
+    <%- include('../partials/sidebar') %>
     <form method="POST" action="/category/<%= param.categoryId %>/update">
         <h1>Update Category</h1>
         <label for="category">Category Name:</label>

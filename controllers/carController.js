@@ -6,6 +6,7 @@ function getStartCar(req, res) {
 }
 
 async function getCar(req, res) {
+    console.log(res.locals)
     const id = req.params.carId
     try {
         const car = await db.getCar(id)

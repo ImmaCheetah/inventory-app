@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%- include('../partials/head') %>
 <body>
+    <%- include('../partials/sidebar') %>
     <form method="POST" action="/car/<%= param.carId %>/update">
         <h1>Update Car</h1>
         <label for="brand">Brand:</label>

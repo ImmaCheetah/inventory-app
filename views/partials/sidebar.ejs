@@ -3,7 +3,7 @@
 <body>
     <aside class="sidebar">
         <h1>Categories</h1>
-        <% categories.forEach(category => { %>
+        <% locals.categories.forEach(category => { %>
             <li class="category-item">
                 <a href="/category/<%= category.category_id %>">
                     <%= category.category %>

@@ -1,4 +1,6 @@
 require("dotenv").config();
+const db = require("./db/queries");
+
 // Packages
 const express = require('express');
 const path = require("node:path");
@@ -21,11 +23,20 @@ app.use(express.static(assetsPath));
 app.set("views", path.join(__dirname, "views/pages"));
 app.set("view engine", "ejs");
 
+app.use(fetchCategories)
+
 // Routes
 app.use('/', indexRouter)
 app.use('/category', categoryRouter)
 app.use('/car', carRouter)
 
+// Pass in categories response object in order to display categories 
+// in sidebar
+async function fetchCategories(req, res, next) {
+  const categories = await db.getAllCategories()
+  res.locals.categories = categories
+  next()
+}
 
 app.use((err, req, res, next) => {
     console.error(err);
