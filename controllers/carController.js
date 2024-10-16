@@ -15,15 +15,18 @@ async function getCar(req, res) {
         }
         res.render('car', {car: car, param: req.params})
     } catch (error) {
-        console.log('BAAAAM',error)
+        console.log('Get car controller', error)
     }
-    // console.log('get car', car)
 }
 
 async function createCarGet(req, res) {
-    const categories = await db.getAllCategories()
-    res.render('createCar', {param: req.params, categories: categories})
-    console.log('create form get', req.params)
+    try {
+        const categories = await db.getAllCategories()
+        res.render('createCar', {param: req.params, categories: categories})
+        console.log('create form get', req.params)
+    } catch (error) {
+        console.log('create car get controller', error)
+    }
 }
 
 async function updateCarGet(req, res) {
