@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const categoryController = require('../controllers/categoryController')
 const categoryRouter = Router();
-const db = require("../db/queries");
-
-
 
 categoryRouter.get('/', categoryController.getStartCategory)
 categoryRouter.get('/new', categoryController.createCategoryGet)

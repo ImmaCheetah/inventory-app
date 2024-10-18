@@ -125,15 +125,110 @@ body {
     font-style: normal;
     display: grid;
     grid-template-columns: 20rem 1fr;
+    
+    min-height: 100vh;
+    background-color: rgb(235, 222, 219);
 }
 
 /* SIDEBAR ||  */
 .sidebar {
   list-style-type: none;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  background-color: rgb(40, 41, 41);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-category-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
 }
 
 .category-item {
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0.5rem 2rem;
 }
 
+.category-item > a {
+  text-decoration: none;
+  padding: 0.5rem 1rem ;
+  background-color: rgb(126, 215, 245);
+}
+
+.add-car-btn, .add-category-btn {
+  text-align: center;
+  text-decoration: none;
+  padding: 1rem;
+  background-color: rgb(57, 57, 57);
+  color: white;
+}
+
+.add-btn-div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* MAIN PAGE ||  */
+.all-cars-text {
+  font-size: 3rem;
+  padding-left: 2rem;
+  padding-top: 1rem;
+}
+
+.smaller-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+
+.car-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 10rem;
+  height: 10rem;
+}
+
+
+
+/* FORMS ||  */
+
+.form {
+  padding-left: 2rem;
+  padding-top: 1rem;
+}
+
+.category-title {
+  font-size: 2rem;
+}
+
+.form:not(.delete-category) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button, .update-btn {
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  background-color: rgb(57, 57, 57);
+  color: white;
+}

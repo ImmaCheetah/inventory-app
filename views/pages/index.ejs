@@ -3,14 +3,14 @@
   <body>
     <%- include('../partials/sidebar') %>
     <div class="cars-container">
-      <h1>All Cars</h1>
-      <% cars.forEach(car => { %>
-        <article class="car-div">
-          <a href="/car/<%= car.car_id %>">
-            <h2><%= car.brand %> <%= car.model %></h2>
+      <h1 class="all-cars-text">All Cars</h1>
+      <div class="smaller-container">
+        <% cars.forEach(car => { %>
+          <a href="/car/<%= car.car_id %>" class="car-btn">
+            <%= car.brand %> <%= car.model %>
           </a>
-        </article>
-      <% }) %>
+        <% }) %>
+      </div>
     </div>
   </body>
 </html>

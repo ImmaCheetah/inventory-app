@@ -5,7 +5,7 @@ function getStartCar(req, res) {
     res.render('car')
 }
 
-async function getCar(req, res) {
+async function getCar(req, res, next) {
     console.log(res.locals)
     const id = req.params.carId
     try {
@@ -17,6 +17,7 @@ async function getCar(req, res) {
         res.render('car', {car: car, param: req.params})
     } catch (error) {
         console.log('Get car controller', error)
+        next(error)
     }
 }
 

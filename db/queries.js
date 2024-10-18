@@ -17,7 +17,7 @@ async function getAllCarsInCategory(categoryId) {
 }
 
 async function getAllCategories() {
-    const {rows} = await pool.query("SELECT * FROM categories");
+    const {rows} = await pool.query("SELECT * FROM categories ORDER BY category ASC");
     return rows;
 }
 

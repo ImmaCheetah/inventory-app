@@ -2,15 +2,17 @@
 <%- include('../partials/head') %>
 <body>
     <aside class="sidebar">
-        <h1>Categories</h1>
-        <% locals.categories.forEach(category => { %>
-            <li class="category-item">
-                <a href="/category/<%= category.category_id %>">
-                    <%= category.category %>
-                </a>
-            </li>
-        <% }) %>
         <div>
+            <a href="/" class="sidebar-category-title">Auto Warehouse</a>
+            <% locals.categories.forEach(category => { %>
+                <li class="category-item">
+                    <a href="/category/<%= category.category_id %>">
+                        <%= category.category %>
+                    </a>
+                </li>
+            <% }) %>
+        </div>
+        <div class="add-btn-div">
             <a href="/car/new" class="add-car-btn">Add Car</a>
             <a href="/category/new" class="add-category-btn">Add Category</a>
         </div>

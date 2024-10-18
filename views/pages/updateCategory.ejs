@@ -2,7 +2,7 @@
 <%- include('../partials/head') %>
 <body>
     <%- include('../partials/sidebar') %>
-    <form method="POST" action="/category/<%= param.categoryId %>/update">
+    <form method="POST" action="/category/<%= param.categoryId %>/update" class="update-category form">
         <h1>Update Category</h1>
         <label for="category">Category Name:</label>
         <input type="text" name="category" value="<%= category[0].category %>">
