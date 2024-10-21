@@ -3,8 +3,8 @@ const { body, validationResult } = require("express-validator");
 
 const validateCategory = [
     body('category').trim()
-        .isAlpha().withMessage('Can only contain letters')
-        .isLength().withMessage('Must be between 1 and 20 characters')
+    .isAlpha().withMessage('Can only contain letters')
+    .isLength({ min: 1, max: 20 }).withMessage('Must be between 1 and 20 characters')
 ]
 
 function getStartCategory(req, res) {
@@ -45,29 +45,45 @@ async function createCategoryPost(req, res, next) {
     try {
         const {category} = req.body;
         const errors = validationResult(req);
-        console.log(errors)
         if (!errors.isEmpty()) {
-            console.log('validation errors if block')
             return res
             .status(400)
-            .render('category', {param: req.params, category: category, errors: errors.array()})
-            // .json({ errors: errors.array({ onlyFirstError: true }) });
+            .render('createCategory', {
+                param: req.params, 
+                category: category, 
+                errors: errors.array()
+            })
         }
         await db.insertCategory(category);
         console.log('category posted')
         res.redirect('/')
     } catch (error) {
-        // next(error)
-        console.log('something')
+        next(error)
+        // console.log('catch error in createCategoryPost')
     }
 }
 
 async function updateCategoryPost(req, res) {
-    const {category} = req.body;
-    const categoryId = parseInt(req.params.categoryId)
-    await db.updateCategory(category, categoryId)
-    console.log('category updated')
-    res.redirect('/')
+    try {
+        const {category} = req.body;
+        const categoryId = parseInt(req.params.categoryId);
+        const errors = validationResult(req);
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            return res
+            .status(400)
+            .render('updateCategory', {
+                param: req.params, 
+                category: category, 
+                errors: errors.array()
+            })
+        }
+        await db.updateCategory(category, categoryId)
+        console.log('category updated')
+        res.redirect('/')
+    } catch (error) {
+        next(error)
+    }
 }
 
 async function deleteCategoryPost(req, res) {

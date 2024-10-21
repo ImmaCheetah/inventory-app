@@ -11,13 +11,12 @@
             <% return %>
           <% } %>
         <% }) %>
-        <%- include("partials/validationError.ejs") %>
         <label for="password"></label>
         <input type="password" name="password" id="password" placeholder="Password" required>
         <button type="submit">Delete</button>
+        <a href="/category/<%= param.categoryId %>/update" class="update-btn">Update</a>
+        <span>* Update does not require password</span>
         <% if (carsInCategory.length > 0) { %>
-          <a href="/category/<%= param.categoryId %>/update" class="update-btn">Update</a>
-          <span>* Update does not require password</span>
         <% } %>
       </form>
 

@@ -4,6 +4,7 @@
     <%- include('../partials/sidebar') %>
     <form method="POST" action="/category/new" class="add-category form">
         <h1>Add a Category</h1>
+        <%- include("../partials/validationError.ejs") %>
         <label for="category">Category Name:</label>
         <input type="text" name="category" required>
         <button type="submit">Add</button>

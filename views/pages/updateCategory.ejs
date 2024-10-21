@@ -4,6 +4,7 @@
     <%- include('../partials/sidebar') %>
     <form method="POST" action="/category/<%= param.categoryId %>/update" class="update-category form">
         <h1>Update Category</h1>
+        <%- include("../partials/validationError.ejs") %>
         <label for="category">Category Name:</label>
         <input type="text" name="category" value="<%= category[0].category %>">
         <button type="submit">Update</button>
