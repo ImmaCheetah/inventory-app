@@ -1,4 +1,11 @@
 const db = require("../db/queries");
+const { body, validationResult } = require("express-validator");
+
+const validateCategory = [
+    body('category').trim()
+        .isAlpha().withMessage('Can only contain letters')
+        .isLength().withMessage('Must be between 1 and 20 characters')
+]
 
 function getStartCategory(req, res) {
     res.render('category')
@@ -18,18 +25,41 @@ function createCategoryGet(req, res) {
 }
 
 async function updateCategoryGet(req, res) {
-    const categoryId = parseInt(req.params.categoryId)
-    const category = await db.findCategory(categoryId)
-    res.render('updateCategory', {param: req.params, category: category})
-    console.log('update category page', categoryId)
-    console.log(category)
+    try {
+        const errors = validationResult(req);
+        const categoryId = parseInt(req.params.categoryId)
+        const category = await db.findCategory(categoryId)
+        res.render('updateCategory', {
+            param: req.params, 
+            category: category, 
+            errors: errors.array()
+        })
+        console.log('update category page', categoryId)
+        console.log(category)
+    } catch (error) {
+        next(error)
+    }
 }
 
-async function createCategoryPost(req, res) {
-    const {category} = req.body;
-    await db.insertCategory(category);
-    console.log('category posted')
-    res.redirect('/')
+async function createCategoryPost(req, res, next) {
+    try {
+        const {category} = req.body;
+        const errors = validationResult(req);
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            console.log('validation errors if block')
+            return res
+            .status(400)
+            .render('category', {param: req.params, category: category, errors: errors.array()})
+            // .json({ errors: errors.array({ onlyFirstError: true }) });
+        }
+        await db.insertCategory(category);
+        console.log('category posted')
+        res.redirect('/')
+    } catch (error) {
+        // next(error)
+        console.log('something')
+    }
 }
 
 async function updateCategoryPost(req, res) {
@@ -59,5 +89,6 @@ module.exports = {
     createCategoryPost,
     updateCategoryGet,
     updateCategoryPost,
-    deleteCategoryPost
+    deleteCategoryPost,
+    validateCategory
 };

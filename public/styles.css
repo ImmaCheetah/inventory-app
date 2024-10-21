@@ -213,8 +213,12 @@ body {
   padding-top: 1rem;
 }
 
-.category-title {
+.category-title, .car-title {
   font-size: 2rem;
+}
+
+.car-description {
+  font-style: italic;
 }
 
 .form:not(.delete-category) {

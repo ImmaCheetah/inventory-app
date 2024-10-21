@@ -3,13 +3,14 @@
   <body>
     <%- include('../partials/sidebar') %>
     <article>
-      <h1><%= car[0].brand %> <%= car[0].model %></h1>
-      <p><%= car[0].description %></p>
-      <a href="/car/<%= car[0].car_id %>/update" class="update-btn">Update</a>
       <form method="POST" action="/car/<%= param.carId %>" class="delete-category form">
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <h1 class="car-title"><%= car[0].brand %> <%= car[0].model %></h1>
+        <p class="car-description"></p><i><%= car[0].description %></i></p>
+        <label for="password"></label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
         <button type="submit">Delete</button>
+        <a href="/car/<%= car[0].car_id %>/update" class="update-btn">Update</a>
+        <span>* Update does not require password</span>
       </form>
     </article>
   </body>
