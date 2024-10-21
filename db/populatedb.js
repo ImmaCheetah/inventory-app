@@ -56,7 +56,7 @@ INSERT INTO car_categories(car_id, category_id) VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.LOCAL_CONNECTION_STRING,
+    connectionString: process.env.REMOTE_CONNECTION_STRING,
   });
   // const client = new Client({
   //   connectionString: `${argv[2]}?sslmode=require`,
