@@ -3,7 +3,6 @@ const categoryController = require('../controllers/categoryController')
 const {validateCategory} = require('../controllers/categoryController')
 const categoryRouter = Router();
 
-categoryRouter.get('/', categoryController.getStartCategory)
 categoryRouter.get('/new', categoryController.createCategoryGet)
 categoryRouter.get('/:categoryId', categoryController.getCategory)
 categoryRouter.get('/:categoryId/update', categoryController.updateCategoryGet)

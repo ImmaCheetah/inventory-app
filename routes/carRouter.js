@@ -3,7 +3,6 @@ const carController = require('../controllers/carController')
 const {validateCar} = require('../controllers/carController')
 const carRouter = Router();
 
-carRouter.get('/', carController.getStartCar)
 carRouter.get('/new', carController.createCarGet)
 carRouter.get('/:carId', carController.getCar)
 carRouter.get('/:carId/update', carController.updateCarGet)

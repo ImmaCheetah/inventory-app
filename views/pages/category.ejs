@@ -3,6 +3,7 @@
   <body>
     <%- include('../partials/sidebar') %>
     <article>
+
       <form method="POST" action="/category/<%= param.categoryId %>" class="delete-category form">
         <% categories.forEach(category => { %>
           <% if (category.category_id == param.categoryId) { %>
@@ -16,8 +17,6 @@
         <button type="submit">Delete</button>
         <a href="/category/<%= param.categoryId %>/update" class="update-btn">Update</a>
         <span>* Update does not require password</span>
-        <% if (carsInCategory.length > 0) { %>
-        <% } %>
       </form>
 
       <div class="smaller-container">
@@ -28,7 +27,6 @@
         <% }) %>
       </div>
 
-      
     </article>
   </body>
 </html>

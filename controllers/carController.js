@@ -14,14 +14,10 @@ const validateCar = [
     .isLength({ min: 0, max: 1000 }).withMessage('Description must be less than 1000 characters')
 ]
 
-function getStartCar(req, res) {
-    res.render('car')
-}
 
 async function getCar(req, res, next) {
-    console.log(res.locals)
-    const id = req.params.carId
     try {
+        const id = req.params.carId
         const car = await db.getCar(id)
         if (car.length === 0) {
             res.status(404).send("Car not found");
@@ -29,8 +25,7 @@ async function getCar(req, res, next) {
         }
         res.render('car', {car: car, param: req.params})
     } catch (error) {
-        console.log('Get car controller', error)
-        next(error)
+        next(new Error("Couldn't get car"))
     }
 }
 
@@ -40,15 +35,18 @@ async function createCarGet(req, res) {
         res.render('createCar', {param: req.params, categories: categories})
         console.log('create form get', req.params)
     } catch (error) {
-        console.log('create car get controller', error)
+        next(new Error("Couldn't get page"))
     }
 }
 
 async function updateCarGet(req, res) {
-    const carId = req.params.carId;
-    const car = await db.findCar(carId)
-    res.render('updateCar', {param: req.params, car: car})
-    console.log('update page', car)
+    try {
+        const carId = req.params.carId;
+        const car = await db.findCar(carId)
+        res.render('updateCar', {param: req.params, car: car})
+    } catch (error) {
+        next(new Error("Couldn't get update page"))
+    }
 }
 
 async function createCarPost(req, res) {
@@ -64,10 +62,9 @@ async function createCarPost(req, res) {
             })
         }
         await db.insertCar(brand, model, description, category);
-        console.log('car posted', brand, model, category, description);
         res.redirect('/');
     } catch (error) {
-        next(error)
+        next(new Error("Couldn't create car"))
     }
 }
 
@@ -87,28 +84,30 @@ async function updateCarPost(req, res) {
             })
         }
         await db.updateCar(brand, model, description, carId)
-        console.log('car updated')
         res.redirect('/')
     } catch (error) {
-        next(error)
+        next(new Error("Couldn't update car"))
     }
     
 }
 
 async function deleteCarPost(req, res) {
-    const carId = req.params.carId;
-    if (req.body.password === process.env.DELETE_PASSWORD) {
-        await db.deleteCar(carId);
-        console.log('deleted car')
-        res.redirect('/')
-        return;
-    } else {
-        return;
+    try {
+        const carId = req.params.carId;
+        if (req.body.password === process.env.DELETE_PASSWORD) {
+            await db.deleteCar(carId);
+            console.log('deleted car')
+            res.redirect('/')
+            return;
+        } else {
+            return;
+        }
+    } catch (error) {
+        next(new Error("Couldn't delete car"))
     }
 }
 
 module.exports = {
-    getStartCar, 
     getCar, 
     createCarGet, 
     updateCarGet, 

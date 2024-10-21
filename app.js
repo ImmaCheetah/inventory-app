@@ -39,6 +39,7 @@ async function fetchCategories(req, res, next) {
   next()
 }
 
+// Use custom error for 404 error
 app.use((req, res, next) => {
   next(
       new CustomError('Page Not Found', 'The page you are looking for does not exist', 404)
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    console.error(err);
+    console.error('main app error',err);
     res.status(err.statusCode || 500).render('error', {error: err});
   });
 

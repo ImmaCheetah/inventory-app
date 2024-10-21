@@ -7,21 +7,18 @@ const validateCategory = [
     .isLength({ min: 1, max: 20 }).withMessage('Must be between 1 and 20 characters')
 ]
 
-function getStartCategory(req, res) {
-    res.render('category')
-}
-
 async function getCategory(req, res) {
-    console.log('locals', res.locals)
-    const categoryId = req.params.categoryId;
-    const carsInCategory = await db.getAllCarsInCategory(categoryId)
-    res.render('category', {param: req.params, carsInCategory: carsInCategory})
-    console.log('cars here in category', carsInCategory)
+    try {
+        const categoryId = req.params.categoryId;
+        const carsInCategory = await db.getAllCarsInCategory(categoryId)
+        res.render('category', {param: req.params, carsInCategory: carsInCategory})
+    } catch (error) {
+        next(new Error("Couldn't get category"))
+    }
 }
 
 function createCategoryGet(req, res) {
     res.render('createCategory', {param: req.params})
-    console.log(req.params)
 }
 
 async function updateCategoryGet(req, res) {
@@ -34,10 +31,8 @@ async function updateCategoryGet(req, res) {
             category: category, 
             errors: errors.array()
         })
-        console.log('update category page', categoryId)
-        console.log(category)
     } catch (error) {
-        next(error)
+        next(new Error("Couldn't get category page"))
     }
 }
 
@@ -54,11 +49,13 @@ async function createCategoryPost(req, res, next) {
                 errors: errors.array()
             })
         }
-        await db.insertCategory(category);
+        await db.insertCategory();
         console.log('category posted')
         res.redirect('/')
     } catch (error) {
-        next(error)
+        // console.error("Error retrieving author:", error);
+        // res.status(500).render('error');
+        next(new Error("Couldn't make category"))
         // console.log('catch error in createCategoryPost')
     }
 }
@@ -82,24 +79,27 @@ async function updateCategoryPost(req, res) {
         console.log('category updated')
         res.redirect('/')
     } catch (error) {
-        next(error)
+        next(new Error("Couldn't update category"))
     }
 }
 
 async function deleteCategoryPost(req, res) {
-    const categoryId = req.params.categoryId;
-    if (req.body.password === process.env.DELETE_PASSWORD) {
-        await db.deleteCategory(categoryId);
-        console.log('deleted category')
-        res.redirect('/')
-        return;
-    } else {
-        return;
+    try {
+        const categoryId = req.params.categoryId;
+        if (req.body.password === process.env.DELETE_PASSWORD) {
+            await db.deleteCategory(categoryId);
+            console.log('deleted category')
+            res.redirect('/')
+            return;
+        } else {
+            return;
+        }
+    } catch (error) {
+        next(new Error("Couldn't delete category"))
     }
 }
 
 module.exports = {
-    getStartCategory, 
     getCategory, 
     createCategoryGet, 
     createCategoryPost,
