@@ -33,7 +33,7 @@ async function getCar(req, res, next) {
     }
 }
 
-async function createCarGet(req, res) {
+async function createCarGet(req, res, next) {
     try {
         const categories = await db.getAllCategories()
         res.render('createCar', {
@@ -46,7 +46,7 @@ async function createCarGet(req, res) {
     }
 }
 
-async function updateCarGet(req, res) {
+async function updateCarGet(req, res, next) {
     try {
         const carId = req.params.carId;
         const car = await db.findCar(carId)
@@ -60,7 +60,7 @@ async function updateCarGet(req, res) {
     }
 }
 
-async function createCarPost(req, res) {
+async function createCarPost(req, res, next) {
     try {
         const {brand, model, category, description} = req.body;
         const errors = validationResult(req);
@@ -80,7 +80,7 @@ async function createCarPost(req, res) {
     }
 }
 
-async function updateCarPost(req, res) {
+async function updateCarPost(req, res, next) {
     try {
         const {brand, model, description} = req.body;
         const carId = req.params.carId;
@@ -103,7 +103,7 @@ async function updateCarPost(req, res) {
     
 }
 
-async function deleteCarPost(req, res) {
+async function deleteCarPost(req, res, next) {
     try {
         const carId = req.params.carId;
         if (req.body.password === process.env.DELETE_PASSWORD) {

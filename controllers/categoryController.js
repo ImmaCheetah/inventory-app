@@ -7,7 +7,7 @@ const validateCategory = [
     .isLength({ min: 1, max: 20 }).withMessage('Must be between 1 and 20 characters')
 ]
 
-async function getCategory(req, res) {
+async function getCategory(req, res, next) {
     try {
         const categoryId = req.params.categoryId;
         const carsInCategory = await db.getAllCarsInCategory(categoryId)
@@ -25,7 +25,7 @@ function createCategoryGet(req, res) {
     res.render('createCategory', {param: req.params, title: 'New Category'})
 }
 
-async function updateCategoryGet(req, res) {
+async function updateCategoryGet(req, res, next) {
     try {
         const errors = validationResult(req);
         const categoryId = parseInt(req.params.categoryId)
@@ -55,17 +55,18 @@ async function createCategoryPost(req, res, next) {
                 errors: errors.array()
             })
         }
-        await db.insertCategory();
+        await db.insertCategory(category);
         res.redirect('/')
     } catch (error) {
         // console.error("Error retrieving author:", error);
         // res.status(500).render('error');
+        console.log(error)
         next(new Error("Couldn't make category"))
         // console.log('catch error in createCategoryPost')
     }
 }
 
-async function updateCategoryPost(req, res) {
+async function updateCategoryPost(req, res, next) {
     try {
         const {category} = req.body;
         const categoryId = parseInt(req.params.categoryId);
@@ -89,7 +90,7 @@ async function updateCategoryPost(req, res) {
     }
 }
 
-async function deleteCategoryPost(req, res) {
+async function deleteCategoryPost(req, res, next) {
     try {
         const categoryId = req.params.categoryId;
         if (req.body.password === process.env.DELETE_PASSWORD) {
