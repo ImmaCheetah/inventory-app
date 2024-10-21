@@ -4,6 +4,7 @@
     <%- include('../partials/sidebar') %>
     <form method="POST" action="/car/<%= param.carId %>/update" class="update-car form">
         <h1>Update Car</h1>
+        <%- include("../partials/validationError.ejs") %>
         <label for="brand">Brand:</label>
         <input type="text" name="brand" value="<%= car[0].brand %>" required>
         <label for="model">Model:</label>
