@@ -11,14 +11,18 @@ async function getCategory(req, res) {
     try {
         const categoryId = req.params.categoryId;
         const carsInCategory = await db.getAllCarsInCategory(categoryId)
-        res.render('category', {param: req.params, carsInCategory: carsInCategory})
+        res.render('category', {
+            param: req.params, 
+            carsInCategory: carsInCategory,
+            title: 'Category'
+        })
     } catch (error) {
         next(new Error("Couldn't get category"))
     }
 }
 
 function createCategoryGet(req, res) {
-    res.render('createCategory', {param: req.params})
+    res.render('createCategory', {param: req.params, title: 'New Category'})
 }
 
 async function updateCategoryGet(req, res) {
@@ -29,6 +33,7 @@ async function updateCategoryGet(req, res) {
         res.render('updateCategory', {
             param: req.params, 
             category: category, 
+            title: 'Update Category',
             errors: errors.array()
         })
     } catch (error) {
@@ -45,12 +50,12 @@ async function createCategoryPost(req, res, next) {
             .status(400)
             .render('createCategory', {
                 param: req.params, 
-                category: category, 
+                category: category,
+                title: 'New Category', 
                 errors: errors.array()
             })
         }
         await db.insertCategory();
-        console.log('category posted')
         res.redirect('/')
     } catch (error) {
         // console.error("Error retrieving author:", error);
@@ -71,7 +76,8 @@ async function updateCategoryPost(req, res) {
             .status(400)
             .render('updateCategory', {
                 param: req.params, 
-                category: category, 
+                category: category,
+                title: 'Update Category', 
                 errors: errors.array()
             })
         }
@@ -88,7 +94,6 @@ async function deleteCategoryPost(req, res) {
         const categoryId = req.params.categoryId;
         if (req.body.password === process.env.DELETE_PASSWORD) {
             await db.deleteCategory(categoryId);
-            console.log('deleted category')
             res.redirect('/')
             return;
         } else {

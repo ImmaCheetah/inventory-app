@@ -23,7 +23,11 @@ async function getCar(req, res, next) {
             res.status(404).send("Car not found");
             return;
         }
-        res.render('car', {car: car, param: req.params})
+        res.render('car', {
+            car: car, param: 
+            req.params,
+            title: 'Car'
+        })
     } catch (error) {
         next(new Error("Couldn't get car"))
     }
@@ -32,8 +36,11 @@ async function getCar(req, res, next) {
 async function createCarGet(req, res) {
     try {
         const categories = await db.getAllCategories()
-        res.render('createCar', {param: req.params, categories: categories})
-        console.log('create form get', req.params)
+        res.render('createCar', {
+            param: req.params, 
+            categories: categories,
+            title: 'New Car'
+        })
     } catch (error) {
         next(new Error("Couldn't get page"))
     }
@@ -43,7 +50,11 @@ async function updateCarGet(req, res) {
     try {
         const carId = req.params.carId;
         const car = await db.findCar(carId)
-        res.render('updateCar', {param: req.params, car: car})
+        res.render('updateCar', {
+            param: req.params, 
+            car: car,
+            title: 'Update Car'
+        })
     } catch (error) {
         next(new Error("Couldn't get update page"))
     }
@@ -57,7 +68,8 @@ async function createCarPost(req, res) {
             return res
             .status(400)
             .render('createCar', {
-                param: req.params,  
+                param: req.params,
+                title: 'New Car',  
                 errors: errors.array()
             })
         }
